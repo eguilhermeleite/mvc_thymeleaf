@@ -3,15 +3,8 @@ package com.edvaldo.leite.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @SuppressWarnings("serial")
 @Entity
@@ -30,14 +23,11 @@ public class Funcionario extends AbstractEntity<Long> {
 	@Column(columnDefinition = "DATE")
 	private LocalDate data_saida;
 
-	@OneToOne
-	@Column(nullable = false)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_endereco")
-	@Cascade(CascadeType.ALL)
 	private Endereco endereco;
 
 	@ManyToOne
-	@Column(nullable = false)
 	@JoinColumn(name = "id_cargo")
 	private Cargo cargo;
 
