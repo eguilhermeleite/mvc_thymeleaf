@@ -24,8 +24,8 @@
 
 <body>
 
-	<!--cabeçalho-->
-	<header>
+	<!--cabeçalho--> 
+	<header th:replace="fragments/header :: cabecalho">
 		<div>header</div>
 	</header>
 
@@ -45,9 +45,9 @@
 	</div>
 
 	<!--rodapé-->
-	<footer>
-		<div></div>
-	</footer>
+    <footer th:replace="fragments/footer :: rodape">
+        <div></div>
+    </footer>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
