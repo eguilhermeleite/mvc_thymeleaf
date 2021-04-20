@@ -30,16 +30,16 @@
 	</header>
 
 	<!--container do conteúdo principal-->
-	<div>
+	<div class="layout-main">
 		<!--barra lateral-->
 		<aside>
-			<nav>
+			<nav th:replace="fragments/sidebar :: nav-sidebar">
 				<span>menu</span>
 			</nav>
 		</aside>
 
 		<!--Conteúdo principal-->
-		<section>
+		<section layout:fragment="corpo">
 			<div>conteúdo</div>
 		</section>
 	</div>
