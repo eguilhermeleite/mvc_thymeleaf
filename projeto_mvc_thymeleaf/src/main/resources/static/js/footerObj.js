@@ -1,0 +1,1 @@
+window.footerObj = new FooterClass();
