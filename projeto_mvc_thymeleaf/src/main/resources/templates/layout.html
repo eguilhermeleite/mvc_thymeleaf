@@ -2,7 +2,6 @@
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
 <title>Spring-Boot Básico</title>
 <meta charset="UTF-8" />
@@ -23,13 +22,12 @@
 </head>
 
 <body>
-
-	<!--cabeçalho--> 
+	<!--cabeçalho igual para todas as paginas-->
 	<header th:replace="fragments/header :: cabecalho">
 		<div>header</div>
 	</header>
 
-	<!--container do conteúdo principal-->
+	<!--container do conteúdo principal igual para todas as paginas-->
 	<div class="layout-main">
 		<!--barra lateral-->
 		<aside>
@@ -38,16 +36,16 @@
 			</nav>
 		</aside>
 
-		<!--Conteúdo principal-->
+		<!--Conteúdo principal dinamico conforme a requisicao-->
 		<section layout:fragment="corpo">
-			<div>conteúdo</div>
+			<div></div>
+			<!--rodapé-->
 		</section>
 	</div>
-
-	<!--rodapé-->
-    <footer th:replace="fragments/footer :: rodape">
-        <div></div>
-    </footer>
+	
+		<footer th:replace="fragments/footer :: rodape">
+			<div>rodapé</div>
+		</footer>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -68,9 +66,9 @@
 			})
 		});
 	</script>
-	<script src="js/FooterClass.js"></script>
-    <script src="js/footerObj.js"></script>
 
+	<script src="/js/FooterClass.js"></script>
+	<script src="/js/footerObj.js"></script>
 </body>
 
 </html>
