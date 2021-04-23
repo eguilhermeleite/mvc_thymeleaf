@@ -16,11 +16,11 @@ public class DepartamentoService {
 	@Autowired
 	public DepartamentoRepository departamentoRepository;
 
-	public void salvar(Departamento Departamento) {
-		departamentoRepository.save(Departamento);
+	public void salvar(Departamento departamento) {
+		departamentoRepository.save(departamento);
 	}
 
-	public void editar(Departamento Departamento) {
+	public void editar(Departamento departamento) {
 
 	}
 
