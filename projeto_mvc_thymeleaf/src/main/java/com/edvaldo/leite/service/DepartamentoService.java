@@ -36,4 +36,6 @@ public class DepartamentoService {
 		return departamentoRepository.findAll();
 	}
 
+	
+
 }
