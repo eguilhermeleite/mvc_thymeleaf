@@ -34,7 +34,7 @@
 							<td th:text="${dep.id}" >ID</td>
 							<td th:text="${dep.nome}">NOME DO DEPARTAMENTO</td>
 							<td colspan="2"><a class="btn btn-info btn-sm"
-								href="/departamentos/editar/4" role="button"> <span
+								th:href="@{/departamentos/editar/{id} (id=${dep.id}) }" role="button"> <span
 									class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 							</a>
 								<button type="button" class="btn btn-danger btn-sm">

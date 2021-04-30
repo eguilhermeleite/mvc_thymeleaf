@@ -1,6 +1,7 @@
 package com.edvaldo.leite.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,29 +14,42 @@ import com.edvaldo.leite.repository.DepartamentoRepository;
 @Transactional
 public class DepartamentoService {
 
+	// instância para métodos de crud
 	@Autowired
 	public DepartamentoRepository departamentoRepository;
-
+  
+	
+	//************Implementação dos métodos********
+	
+	//salvar
 	public void salvar(Departamento departamento) {
 		departamentoRepository.save(departamento);
 	}
-
-	public void editar(Departamento departamento) {
-
-	}
-
+	
+	//excluir
 	public void excluir(Long id) {
 		departamentoRepository.deleteById(id);
 	}
 
-	public void buscarPorId(Long id) {
-		departamentoRepository.findById(id);
-	}
+	//buscar por id
+	public Departamento buscarPorId(Long id) {
+		Optional<Departamento> obj = departamentoRepository.findById(id);
+		return obj.get();
+	} 
 
+	//buscar todos
 	public List<Departamento> buscarTodos() {
 		return departamentoRepository.findAll();
 	}
 
-	
+	//atualizar 
+		public Departamento atualizar(Departamento obj) {
+			Departamento newObj = buscarPorId(obj.getId());
+			preAtualizar(newObj, obj);
+			return departamentoRepository.save(newObj);
+		}
+		private void preAtualizar(Departamento newObj, Departamento obj) {
+			newObj.setNome(obj.getNome());
+		}
 
 }
