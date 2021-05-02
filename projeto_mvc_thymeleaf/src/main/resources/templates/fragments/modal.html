@@ -8,9 +8,9 @@
 	<div class="modal fade" th:id="modalExcluir + ${dep.id}" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true" th:fragment="modal">
-		<div class="modal-dialog modal-dialog-centered  bd-example-modal-sm"
+		<div class="modal-dialog modal-dialog-centered "
 			role="document">
-			<div class="modal-dialog modal-sm">
+			<div class="modal-dialog ">
 				<div class="modal-content">
 					<div class="modal-header bg-dark">
 						<div class="display-4 modal-title  text-warning"
@@ -22,7 +22,7 @@
 					</div>
 
 					<div class="modal-body lead ">
-						<span class="lead text-dark ">Deseja mesmo excluir?</span>
+						<span class="text-dark "  th:text=" 'Deseja mesmo excluir ' + ${dep.nome} + '?' " ></span>
 					</div>
 
 					<div class="modal-footer">
