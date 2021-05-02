@@ -67,7 +67,9 @@
 			setTimeout(function(){
 				$(".alert").fadeOut("slow", function(){
 					$(this).alert('close');
+					window.location.href = "http://localhost:8080/departamentos/listar";
 				});
+				
 			}, 2500);
 			
 			$(".navbar-toggle").click(function() {
