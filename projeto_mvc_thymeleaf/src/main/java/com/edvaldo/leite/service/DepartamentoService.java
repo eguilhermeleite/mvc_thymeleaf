@@ -51,5 +51,13 @@ public class DepartamentoService {
 		private void preAtualizar(Departamento newObj, Departamento obj) {
 			newObj.setNome(obj.getNome());
 		}
+		
+		// verifica se departamento tem cargo vinculado
+		public boolean departamentoTemCargo(Long id) {
+			if(buscarPorId(id).getCargos().isEmpty()) {
+				return false;
+			}
+			return true;
+		}
 
 }
