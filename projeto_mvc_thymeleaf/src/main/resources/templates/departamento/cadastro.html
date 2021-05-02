@@ -20,7 +20,6 @@
 		</nav>
 
 		<div class="container" id="cadastro">
-
 			<form th:action="${departamento.id == null} ? @{/departamentos/salvar} :  @{/departamentos/editar}"
 				th:object="${departamento}" method="POST">
 				<div class="form-row">

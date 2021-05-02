@@ -36,7 +36,7 @@ public class DepartamentoController {
 	}
 
 	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id")Long id, ModelMap model) {
+	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("departamento", service.buscarPorId(id));
 		return "/departamento/cadastro";
 	}
@@ -46,6 +46,16 @@ public class DepartamentoController {
 		service.atualizar(departamento);
 		return "redirect:/departamentos/cadastrar";
 	}
-	
-	
+
+	@GetMapping("/confirmarExclusao/{id}")
+	public String confirmarExclusao() {
+		return "redirect:/departamentos/listar";
+	}
+
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable("id") Long id) {
+		service.excluir(id);
+		return "redirect:/departamentos/listar";
+	}
+
 }
