@@ -13,7 +13,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <i class="oi oi-caret-right"></i>
-                        <span class="h5">Cadastrar Cargos</span>
+                        <span class="h5">Editar Cargo</span>
                     </li>
                 </ul>
             </div>
@@ -21,6 +21,7 @@
                 <span class="oi oi-spreadsheet" title="Cadastro" aria-hidden="true"></span>
                 <span>Listar Cargos</span>
             </a>
+            
         </nav>
 
         <div class="container" id="cadastro">
@@ -32,19 +33,15 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nome">Nome do Cargo</label>
-                        <input type="text" class="form-control" id="nomeCargo" placeholder="Nome do Cargo" minlength="5" autofocus="autofocus" th:field="*{nome}" />
+                        <input type="text" class="form-control" id="nomeCargo" placeholder="Nome Cargo" autofocus="autofocus" th:field="*{nome}" />
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="departamento">Departamento</label>
-                        <select id="departamentoSelect" class="form-control" name="departamento" required>
-                            <option value="">Selecione</option>
-                            <option  th:each="dep:${departamentos}" th:value="${dep.id}" th:text="${dep.nome}"></option>
-                        </select>
-                    </div>
+                  
                 </div>
                 <input type="hidden" id="id" th:field="*{id}" />
                 <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+                 <a href="/cargos/listar"> <button type="button" class="btn btn-danger btn-sm ml-3">Cancelar</button>  </a>
             </form>
+            
         </div>
     </section>
 </body>

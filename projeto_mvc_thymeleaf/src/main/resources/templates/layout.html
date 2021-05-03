@@ -72,6 +72,13 @@
 				
 			}, 2500);
 			
+			$("#cadForm").submit(function() {
+			    if($("#nomeCargo").val()== null || $("#nomeCargo").val() ==""){
+			        alert('O Campo Nome do Cargo está Vazio');      
+			        return false;
+			    }
+			});
+			
 			$(".navbar-toggle").click(function() {
 				$(".sidebar").toggleClass("sidebar-open");
 			})
