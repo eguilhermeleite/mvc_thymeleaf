@@ -1,11 +1,13 @@
 package com.edvaldo.leite.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.edvaldo.leite.domain.Cargo;
 import com.edvaldo.leite.domain.Cargo;
 import com.edvaldo.leite.repository.CargoRepository;
 
@@ -20,16 +22,25 @@ public class CargoService {
 		cargoRepository.save(cargo);
 	}
 
-	public void editar(Cargo cargo) {
+	// atualizar
+	public Cargo atualizar(Cargo obj) {
+		Cargo newObj = buscarPorId(obj.getId());
+		preAtualizar(newObj, obj);
+		return cargoRepository.save(newObj);
+	}
 
+	private void preAtualizar(Cargo newObj, Cargo obj) {
+		newObj.setNome(obj.getNome());
 	}
 
 	public void excluir(Long id) {
 		cargoRepository.deleteById(id);
 	}
 
-	public void buscarPorId(Long id) {
-		cargoRepository.findById(id);
+	// buscar por id
+	public Cargo buscarPorId(Long id) {
+		Optional<Cargo> obj = cargoRepository.findById(id);
+		return obj.get();
 	}
 
 	public List<Cargo> buscarTodos() {
