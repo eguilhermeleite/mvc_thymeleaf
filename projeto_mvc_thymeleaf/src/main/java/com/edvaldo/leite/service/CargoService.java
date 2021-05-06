@@ -15,36 +15,43 @@ import com.edvaldo.leite.repository.CargoRepository;
 @Transactional
 public class CargoService {
 
-	@Autowired
-	public CargoRepository cargoRepository;
+    @Autowired
+    public CargoRepository cargoRepository;
 
-	public void salvar(Cargo cargo) {
-		cargoRepository.save(cargo);
-	}
+    public void salvar(Cargo cargo) {
+	cargoRepository.save(cargo);
+    }
 
-	// atualizar
-	public Cargo atualizar(Cargo obj) {
-		Cargo newObj = buscarPorId(obj.getId());
-		preAtualizar(newObj, obj);
-		return cargoRepository.save(newObj);
-	}
+    // atualizar
+    public Cargo atualizar(Cargo obj) {
+	Cargo newObj = buscarPorId(obj.getId());
+	preAtualizar(newObj, obj);
+	return cargoRepository.save(newObj);
+    }
 
-	private void preAtualizar(Cargo newObj, Cargo obj) {
-		newObj.setNome(obj.getNome());
-	}
+    private void preAtualizar(Cargo newObj, Cargo obj) {
+	newObj.setNome(obj.getNome());
+    }
 
-	public void excluir(Long id) {
-		cargoRepository.deleteById(id);
-	}
+    public void excluir(Long id) {
+	cargoRepository.deleteById(id);
+    }
 
-	// buscar por id
-	public Cargo buscarPorId(Long id) {
-		Optional<Cargo> obj = cargoRepository.findById(id);
-		return obj.get();
-	}
+    // buscar por id
+    public Cargo buscarPorId(Long id) {
+	Optional<Cargo> obj = cargoRepository.findById(id);
+	return obj.get();
+    }
 
-	public List<Cargo> buscarTodos() {
-		return cargoRepository.findAll();
+    public List<Cargo> buscarTodos() {
+	return cargoRepository.findAll();
+    }
+
+    public boolean cargoTemFuncionario(Long id) {
+	if (buscarPorId(id).getFuncionarios().isEmpty()) {
+	    return false;
 	}
+	return true;
+    }
 
 }
