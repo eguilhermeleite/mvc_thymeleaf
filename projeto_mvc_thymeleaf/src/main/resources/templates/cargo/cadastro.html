@@ -23,8 +23,8 @@
 										</div>
 										<div class="form-group col-md-4">
 												<label for="departamento">Departamento</label> <select id="departamentoSelect" class="form-control" name="departamento" required>
-														<option value="">Selecione</option>
-														<option th:each="dep:${departamentos}" th:value="${dep.id}" th:text="${dep.nome}"></option>
+														<option value="" class="h4">Selecione</option>
+														<option th:each="dep:${departamentos}" th:value="${dep.id}" th:text="${dep.nome}" class="lead mt-3" ></option>
 												</select>
 										</div>
 								</div>
