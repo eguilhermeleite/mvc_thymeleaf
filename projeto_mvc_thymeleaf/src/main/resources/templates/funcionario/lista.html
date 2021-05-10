@@ -72,7 +72,7 @@
 
 
 						<div class="table-responsive">
-								<table class="table table-striped table-hover table-sm">
+								<table class="table table-striped table-hover table-sm mb-5">
 										<thead>
 												<tr>
 														<th>#</th>
@@ -95,7 +95,7 @@
 														<td th:text="${obj.cargo.nome}">Auxiliar de RH</td>
 														<td>
 																<button type="button" class="btn btn-secondary btn-sm" data-container="body" data-toggle="popover" data-placement="top"
-																		th:data-content="${obj.endereco.logradouro +', ' + obj.endereco.numero + ' ' + obj.endereco.bairro + ' ' +obj.endereco.cidade +' - ' + obj.endereco.uf + ' ' +  obj.endereco.complemento}">
+																		th:data-content="${obj.endereco.logradouro +', '+ obj.endereco.numero + ' ' + obj.endereco.bairro + ' - '+ obj.endereco.cep + ' / '  +obj.endereco.cidade +' - ' + obj.endereco.uf + ' ' +  obj.endereco.complemento}">
 																		<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
 																</button>
 														</td>
