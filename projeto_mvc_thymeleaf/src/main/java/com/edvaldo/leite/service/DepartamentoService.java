@@ -14,50 +14,50 @@ import com.edvaldo.leite.repository.DepartamentoRepository;
 @Transactional
 public class DepartamentoService {
 
-	// instância para métodos de crud
-	@Autowired
-	public DepartamentoRepository departamentoRepository;
-  
-	
-	//************Implementação dos métodos********
-	
-	//salvar
-	public void salvar(Departamento departamento) {
-		departamentoRepository.save(departamento);
-	}
-	
-	//excluir
-	public void excluir(Long id) {
-		departamentoRepository.deleteById(id);
-	}
+    // instância para métodos de crud
+    @Autowired
+    public DepartamentoRepository departamentoRepository;
 
-	//buscar por id
-	public Departamento buscarPorId(Long id) {
-		Optional<Departamento> obj = departamentoRepository.findById(id);
-		return obj.get();
-	} 
+    // ************Implementação dos métodos********
 
-	//buscar todos
-	public List<Departamento> buscarTodos() {
-		return departamentoRepository.findAll();
+    // salvar
+    public void salvar(Departamento departamento) {
+	departamentoRepository.save(departamento);
+    }
+
+    // excluir
+    public void excluir(Long id) {
+	departamentoRepository.deleteById(id);
+    }
+
+    // buscar por id
+    public Departamento buscarPorId(Long id) {
+	Optional<Departamento> obj = departamentoRepository.findById(id);
+	return obj.get();
+    }
+
+    // buscar todos
+    public List<Departamento> buscarTodos() {
+	return departamentoRepository.findAll();
+    }
+
+    // atualizar
+    public Departamento atualizar(Departamento obj) {
+	Departamento newObj = buscarPorId(obj.getId());
+	preAtualizar(newObj, obj);
+	return departamentoRepository.save(newObj);
+    }
+
+    private void preAtualizar(Departamento newObj, Departamento obj) {
+	newObj.setNome(obj.getNome());
+    }
+
+    // verifica se departamento tem cargo vinculado
+    public boolean departamentoTemCargo(Long id) {
+	if (buscarPorId(id).getCargos().isEmpty()) {
+	    return false;
 	}
-
-	//atualizar 
-		public Departamento atualizar(Departamento obj) {
-			Departamento newObj = buscarPorId(obj.getId());
-			preAtualizar(newObj, obj);
-			return departamentoRepository.save(newObj);
-		}
-		private void preAtualizar(Departamento newObj, Departamento obj) {
-			newObj.setNome(obj.getNome());
-		}
-		
-		// verifica se departamento tem cargo vinculado
-		public boolean departamentoTemCargo(Long id) {
-			if(buscarPorId(id).getCargos().isEmpty()) {
-				return false;
-			}
-			return true;
-		}
+	return true;
+    }
 
 }

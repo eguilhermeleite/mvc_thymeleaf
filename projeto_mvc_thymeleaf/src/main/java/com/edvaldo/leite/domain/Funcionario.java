@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.format.annotation.NumberFormat;
@@ -31,7 +33,8 @@ public class Funcionario extends AbstractEntity<Long> {
 	@Column(columnDefinition = "DATE")
 	private LocalDate data_saida;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
+	@Cascade(CascadeType.ALL)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 
