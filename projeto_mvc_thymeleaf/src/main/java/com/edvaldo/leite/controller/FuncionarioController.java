@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edvaldo.leite.domain.Cargo;
-import com.edvaldo.leite.domain.Departamento;
 import com.edvaldo.leite.domain.Funcionario;
 import com.edvaldo.leite.domain.enums.UF;
 import com.edvaldo.leite.service.CargoService;
@@ -65,6 +65,12 @@ public class FuncionarioController {
 	funService.excluir(id);
 	model.addAttribute("success", "Funcionário excluído com sucesso!");
 	return listar(model);
+    }
+    
+    @GetMapping("/buscar/nome")
+    public String getNome(@RequestParam("nome")String nome, ModelMap model) {
+	model.addAttribute("funcionarios", funService.buscarPorNome(nome));
+	return "/funcionario/lista";
     }
 
     @ModelAttribute("cargos")

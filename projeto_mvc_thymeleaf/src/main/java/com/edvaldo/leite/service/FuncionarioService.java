@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edvaldo.leite.domain.Departamento;
 import com.edvaldo.leite.domain.Funcionario;
 import com.edvaldo.leite.repository.FuncionarioRepository;
 
@@ -19,7 +18,6 @@ public class FuncionarioService {
     public void salvar(Funcionario funcionario) {
 	funcionarioRepository.save(funcionario);
     }
-
 
     // atualizar
     public Funcionario atualizar(Funcionario obj) {
@@ -45,6 +43,10 @@ public class FuncionarioService {
 	Optional<Funcionario> obj = funcionarioRepository.findById(id);
 	return obj.get();
 
+    }
+
+    public List<Funcionario> buscarPorNome(String nome) {
+	return funcionarioRepository.findByNomeContaining(nome);
     }
 
     public List<Funcionario> buscarTodos() {
