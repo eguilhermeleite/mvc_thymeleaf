@@ -72,6 +72,13 @@ public class FuncionarioController {
 	model.addAttribute("funcionarios", funService.buscarPorNome(nome));
 	return "/funcionario/lista";
     }
+    
+    
+    @GetMapping("/buscar/cargo")
+    public String getCargo(@RequestParam("nome")String nome, ModelMap model) {
+	model.addAttribute("funcionarios", funService.buscarPorCargo(nome));
+	return "/funcionario/lista";
+    }
 
     @ModelAttribute("cargos")
     public List<Cargo> getCargo() {

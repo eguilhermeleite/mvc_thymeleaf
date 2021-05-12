@@ -53,4 +53,9 @@ public class FuncionarioService {
 	return funcionarioRepository.findAll();
     }
 
+    public List<Funcionario>  buscarPorCargo(String nome) {
+
+	return funcionarioRepository.findByCargoNome(nome);
+    }
+
 }

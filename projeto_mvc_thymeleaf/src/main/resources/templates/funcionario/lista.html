@@ -37,10 +37,10 @@
 				<div class="col">
 					<div class="collapse" id="collapseCargo">
 						<nav class="navbar navbar-light bg-light">
-							<form class="form-inline" method="GET" action="/funcionarios/buscar/cargo">
-								<select class="form-control mr-sm-2" name="cargo" aria-label="Search">
-									<option value="">Cargo</option>
-									<option value="1">Auxiliar Contábil</option>
+							<form class="form-inline" method="GET" th:action="@{/funcionarios/buscar/cargo}">
+								<select class="form-control mr-sm-2" th:name="nome" aria-label="Search">
+									<option value="" class="h4">Selecione o Cargo</option>
+									<option  th:each="obj : ${cargos}" th:value="${obj.nome}" th:text="${obj.nome}">Auxiliar Contábil</option>
 								</select>
 								<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
 							</form>
