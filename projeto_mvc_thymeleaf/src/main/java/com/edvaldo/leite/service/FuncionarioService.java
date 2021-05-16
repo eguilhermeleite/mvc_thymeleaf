@@ -1,5 +1,7 @@
 package com.edvaldo.leite.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,8 @@ public class FuncionarioService {
 	newObj.setNome(obj.getNome());
 	newObj.setSalario(obj.getSalario());
 	newObj.setCargo(obj.getCargo());
-	newObj.setData_entrada(obj.getData_entrada());
-	newObj.setData_saida(obj.getData_saida());
+	newObj.setDataEntrada(obj.getDataEntrada());
+	newObj.setDataSaida(obj.getDataSaida());
 	newObj.setEndereco(obj.getEndereco());
     }
 
@@ -53,9 +55,21 @@ public class FuncionarioService {
 	return funcionarioRepository.findAll();
     }
 
-    public List<Funcionario>  buscarPorCargo(String nome) {
+    public List<Funcionario> buscarPorCargo(String nome) {
 
 	return funcionarioRepository.findByCargoNome(nome);
+    }
+
+    public List<Funcionario> buscarPorData(LocalDate entrada, LocalDate saida) {
+	if (entrada != null && saida != null) {
+	    return funcionarioRepository.findByDataEntradaBetween(entrada, saida);
+	} else if (saida == null) {
+	    return funcionarioRepository.findByDataEntrada(entrada);
+	} else if (entrada == null) {
+	    return funcionarioRepository.findByDataSaida(saida);
+	} else {
+	    return new ArrayList<>();
+	}
     }
 
 }

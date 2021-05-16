@@ -1,8 +1,10 @@
 package com.edvaldo.leite.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,17 +68,24 @@ public class FuncionarioController {
 	model.addAttribute("success", "Funcionário excluído com sucesso!");
 	return listar(model);
     }
-    
+
     @GetMapping("/buscar/nome")
-    public String getNome(@RequestParam("nome")String nome, ModelMap model) {
+    public String getNome(@RequestParam("nome") String nome, ModelMap model) {
 	model.addAttribute("funcionarios", funService.buscarPorNome(nome));
 	return "/funcionario/lista";
     }
-    
-    
+
     @GetMapping("/buscar/cargo")
-    public String getCargo(@RequestParam("nome")String nome, ModelMap model) {
+    public String getCargo(@RequestParam("nome") String nome, ModelMap model) {
 	model.addAttribute("funcionarios", funService.buscarPorCargo(nome));
+	return "/funcionario/lista";
+    }
+
+    @GetMapping("/buscar/data")
+    public String getData(@RequestParam(name = "entrada" , required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate entrada,
+	    @RequestParam(name = "saida", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate saida, ModelMap model) {
+
+	model.addAttribute("funcionarios", funService.buscarPorData(entrada, saida));
 	return "/funcionario/lista";
     }
 

@@ -27,11 +27,11 @@ public class Funcionario extends AbstractEntity<Long> {
 
 	@DateTimeFormat(iso = ISO.DATE)
 	@Column(nullable = false, columnDefinition = "DATE")
-	private LocalDate data_entrada;
+	private LocalDate dataEntrada;
 
 	@DateTimeFormat(iso = ISO.DATE)
 	@Column(columnDefinition = "DATE")
-	private LocalDate data_saida;
+	private LocalDate dataSaida;
 
 	@OneToOne()
 	@Cascade(CascadeType.ALL)
@@ -50,20 +50,20 @@ public class Funcionario extends AbstractEntity<Long> {
 		this.nome = nome;
 	}
 
-	public LocalDate getData_entrada() {
-		return data_entrada;
+	public LocalDate getDataEntrada() {
+		return dataEntrada;
 	}
 
-	public void setData_entrada(LocalDate data_entrada) {
-		this.data_entrada = data_entrada;
+	public void setDataEntrada(LocalDate dataEntrada) {
+		this.dataEntrada = dataEntrada;
 	}
 
-	public LocalDate getData_saida() {
-		return data_saida;
+	public LocalDate getDataSaida() {
+		return dataSaida;
 	}
 
-	public void setData_saida(LocalDate data_saida) {
-		this.data_saida = data_saida;
+	public void setDataSaida(LocalDate dataSaida) {
+		this.dataSaida = dataSaida;
 	}
 
 	public BigDecimal getSalario() {

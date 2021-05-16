@@ -40,7 +40,7 @@
 							<form class="form-inline" method="GET" th:action="@{/funcionarios/buscar/cargo}">
 								<select class="form-control mr-sm-2" th:name="nome" aria-label="Search">
 									<option value="" class="h4">Selecione o Cargo</option>
-									<option  th:each="obj : ${cargos}" th:value="${obj.nome}" th:text="${obj.nome}">Auxiliar Contábil</option>
+									<option th:each="obj : ${cargos}" th:value="${obj.nome}" th:text="${obj.nome}">Auxiliar Contábil</option>
 								</select>
 								<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
 							</form>
@@ -52,8 +52,9 @@
 				<div class="col">
 					<div class="collapse" id="collapseData">
 						<nav class="navbar navbar-light bg-light">
-							<form class="form-inline" method="GET" action="/funcionarios/buscar/data">
-								<input class="form-control mr-sm-2" type="date" aria-label="Search" name="entrada" /> <input class="form-control mr-sm-2" type="date" aria-label="Search" name="saida" />
+							<form class="form-inline" method="GET" th:action="@{/funcionarios/buscar/data}">
+								<label class="h6 pr-2 text-success">Entrada: </label> <input class="form-control mr-sm-2" type="date" aria-label="Search" th:name="entrada" /> <label class="h6 pr-2 pl-3 text-success">Saída:
+								</label> <input class="form-control mr-sm-2" type="date" aria-label="Search" th:name="saida" />
 								<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
 							</form>
 						</nav>
@@ -61,9 +62,7 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-			
-			<div th:replace="fragments/alert"></div>
-			
+				<div th:replace="fragments/alert"></div>
 				<table class="table table-hover table-dark  mb-5 table-bordered">
 					<thead>
 						<tr>
@@ -100,8 +99,8 @@
 									<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
 								</button>
 							</td>
-							<td th:text="${#temporals.format(obj.data_entrada,'dd/MM/yyyy' )}">01/10/2014</td>
-							<td th:text="${#temporals.format(obj.data_saida,'dd/MM/yyyy' )}"></td>
+							<td th:text="${#temporals.format(obj.dataEntrada,'dd/MM/yyyy' )}">01/10/2014</td>
+							<td th:text="${#temporals.format(obj.dataSaida,'dd/MM/yyyy' )}"></td>
 							<td colspan="2"><a class="btn btn-info btn-sm" th:href="@{/funcionarios/editar/{id}(id = ${obj.id})}" role="button"> <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 							</a>
 								<button th:id=" ${ 'btn_funcionarios/excluir/' + obj.id}" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete">
