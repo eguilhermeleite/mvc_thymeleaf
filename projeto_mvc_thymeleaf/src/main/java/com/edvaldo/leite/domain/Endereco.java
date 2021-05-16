@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.edvaldo.leite.domain.enums.UF;
 
@@ -12,82 +15,93 @@ import com.edvaldo.leite.domain.enums.UF;
 @Entity
 @Table(name = "ENDERECOS")
 public class Endereco extends AbstractEntity<Long> {
-	
-	@Column(nullable = false, length = 9)
-	private String cep;
-	
-	@Column(nullable = false)
-	private String logradouro;
-	
-	@Column(nullable = false)
-	private String bairro;
-	
-	@Column(nullable = false)
-	private String cidade;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 2)
-	private UF uf;
-	
-	@Column(nullable = false, length = 5)
-	private Integer numero;
-	
-	private String complemento;
 
-	public String getCep() {
-		return cep;
-	}
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    @Size(min = 9, max = 9, message = "Digite os 8 números do CEP")
+    @Column(nullable = false, length = 9)
+    private String cep;
 
-	public String getLogradouro() {
-		return logradouro;
-	}
+    @NotBlank
+    @Size(min = 3, max = 255)
+    @Column(nullable = false)
+    private String logradouro;
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
+    @NotBlank
+    @Size(min = 3, max = 255)
+    @Column(nullable = false)
+    private String bairro;
 
-	public String getBairro() {
-		return bairro;
-	}
+    @NotBlank
+    @Size(min = 3, max = 255)
+    @Column(nullable = false)
+    private String cidade;
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    @NotNull(message = "{NotNull.endereco.uf}")// mensagem no arquivo ValidationMessages.properties
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 2)
+    private UF uf;
 
-	public String getCidade() {
-		return cidade;
-	}
+    @NotNull(message = "{NotNull.endereco.numero}")
+    @Column(nullable = false, length = 5)
+    private Integer numero;
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
+    @Size(max = 255)
+    private String complemento;
 
-	public UF getUf() {
-		return uf;
-	}
+    public String getCep() {
+	return cep;
+    }
 
-	public void setUf(UF uf) {
-		this.uf = uf;
-	}
+    public void setCep(String cep) {
+	this.cep = cep;
+    }
 
-	public Integer getNumero() {
-		return numero;
-	}
+    public String getLogradouro() {
+	return logradouro;
+    }
 
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
+    public void setLogradouro(String logradouro) {
+	this.logradouro = logradouro;
+    }
 
-	public String getComplemento() {
-		return complemento;
-	}
+    public String getBairro() {
+	return bairro;
+    }
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-	
+    public void setBairro(String bairro) {
+	this.bairro = bairro;
+    }
+
+    public String getCidade() {
+	return cidade;
+    }
+
+    public void setCidade(String cidade) {
+	this.cidade = cidade;
+    }
+
+    public UF getUf() {
+	return uf;
+    }
+
+    public void setUf(UF uf) {
+	this.uf = uf;
+    }
+
+    public Integer getNumero() {
+	return numero;
+    }
+
+    public void setNumero(Integer numero) {
+	this.numero = numero;
+    }
+
+    public String getComplemento() {
+	return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+	this.complemento = complemento;
+    }
+
 }

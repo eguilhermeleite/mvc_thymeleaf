@@ -3,10 +3,13 @@ package com.edvaldo.leite.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +46,12 @@ public class FuncionarioController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(Funcionario funcionario, RedirectAttributes attr) {
+    public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
+
+	if (result.hasErrors()) {
+	    return "/funcionario/cadastro";
+	}
+
 	funService.salvar(funcionario);
 	attr.addFlashAttribute("success", "Funcionário cadastrado com sucesso!");
 	return "redirect:/funcionarios/cadastrar";
@@ -56,7 +64,12 @@ public class FuncionarioController {
     }
 
     @PostMapping("/editar")
-    public String editar(Funcionario funcionario, RedirectAttributes attr) {
+    public String editar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
+
+	if (result.hasErrors()) {
+	    return "/funcionario/cadastro";
+	}
+
 	funService.atualizar(funcionario);
 	attr.addFlashAttribute("success", "Funcionário editado com sucesso");
 	return "redirect:/funcionarios/cadastrar";
