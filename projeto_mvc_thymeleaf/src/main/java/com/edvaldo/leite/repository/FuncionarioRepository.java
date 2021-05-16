@@ -14,12 +14,11 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     List<Funcionario> findByNomeContaining(String nome);
 
     List<Funcionario> findByCargoNome(String nome);
-    
+
     List<Funcionario> findByDataEntradaBetween(LocalDate dataEntrada, LocalDate dataSaida);
 
     List<Funcionario> findByDataEntrada(LocalDate dataEntrada);
 
     List<Funcionario> findByDataSaida(LocalDate dataSaida);
 
-   
 }
