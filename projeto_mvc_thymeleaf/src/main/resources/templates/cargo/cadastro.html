@@ -43,13 +43,13 @@
 							placeholder="Nome do Cargo"
 							minlength="5"
 							autofocus="autofocus"
-							th:field="*{nome}" />
+							th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' "  />
 					</div>
 					<div class="form-group col-md-4">
 						<label for="departamento">Departamento</label> <select
 							id="departamentoSelect"
 							class="form-control"
-							name="departamento">
+							name="departamento" th:classappend="${#fields.hasErrors('departamento')} ? 'is-invalid' ">
 							<option
 								value=""
 								class="h4">Selecione</option>

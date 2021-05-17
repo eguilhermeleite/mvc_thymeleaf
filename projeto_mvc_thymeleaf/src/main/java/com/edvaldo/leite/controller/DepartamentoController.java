@@ -19,61 +19,64 @@ import com.edvaldo.leite.service.DepartamentoService;
 @RequestMapping("/departamentos")
 public class DepartamentoController {
 
-    @Autowired
-    private DepartamentoService service;
+	@Autowired
+	private DepartamentoService service;
 
-    @GetMapping("/cadastrar")
-    public String cadastrar(Departamento departamento) {
-	return "/departamento/cadastro";
-    }
-
-    @GetMapping("/listar")
-    public String listar(ModelMap model) {
-	model.addAttribute("departamentos", service.buscarTodos());
-	return "/departamento/lista";
-    }
-
-    @PostMapping("/salvar")
-    public String salvar(@Valid Departamento departamento,BindingResult result, RedirectAttributes attr) {
-	
-	if (result.hasErrors()) {
-	    return "/departamento/cadastro";
+	@GetMapping("/cadastrar")
+	public String cadastrar(Departamento departamento) {
+		return "/departamento/cadastro";
 	}
-	
-	service.salvar(departamento);
-	attr.addFlashAttribute("success", "Departamento cadastrado com sucesso");
-	return "redirect:/departamentos/cadastrar";
-    }
 
-    @GetMapping("/editar/{id}")
-    public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-	model.addAttribute("departamento", service.buscarPorId(id));
-	return "/departamento/cadastro";
-    }
-
-    @PostMapping("/editar")
-    public String editar(Departamento departamento, RedirectAttributes attr) {
-	service.atualizar(departamento);
-	attr.addFlashAttribute("success", "Departamento editado com sucesso");
-	return "redirect:/departamentos/cadastrar";
-    }
-
-    // OPCIONAL
-    @GetMapping("/confirmarExclusao/{id}")
-    public String confirmarExclusao() {
-	return "redirect:/departamentos/listar";
-    }
-    // ***********************
-
-    @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable("id") Long id, ModelMap model) {
-	if (service.departamentoTemCargo(id)) {
-	    model.addAttribute("fail", "Departamento não removido pois tem cargo(s) vinculado(s)...");
-	} else {
-	    service.excluir(id);
-	    model.addAttribute("success", "Departamento excluído com sucesso!");
+	@GetMapping("/listar")
+	public String listar(ModelMap model) {
+		model.addAttribute("departamentos", service.buscarTodos());
+		return "/departamento/lista";
 	}
-	return listar(model);
-    }
+
+	@PostMapping("/salvar")
+	public String salvar(@Valid Departamento departamento, BindingResult result,
+			RedirectAttributes attr) {
+
+		if (result.hasErrors()) {
+			return "/departamento/cadastro";
+		}
+
+		service.salvar(departamento);
+		attr.addFlashAttribute("success",
+				"Departamento cadastrado com sucesso");
+		return "redirect:/departamentos/cadastrar";
+	}
+
+	@GetMapping("/editar/{id}")
+	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
+		model.addAttribute("departamento", service.buscarPorId(id));
+		return "/departamento/cadastro";
+	}
+
+	@PostMapping("/editar")
+	public String editar(Departamento departamento, RedirectAttributes attr) {
+		service.atualizar(departamento);
+		attr.addFlashAttribute("success", "Departamento editado com sucesso");
+		return "redirect:/departamentos/cadastrar";
+	}
+
+	// OPCIONAL
+	@GetMapping("/confirmarExclusao/{id}")
+	public String confirmarExclusao() {
+		return "redirect:/departamentos/listar";
+	}
+	// ***********************
+
+	@GetMapping("/excluir/{id}")
+	public String excluir(@PathVariable("id") Long id, ModelMap model) {
+		if (service.departamentoTemCargo(id)) {
+			model.addAttribute("fail",
+					"Departamento não removido pois tem cargo(s) vinculado(s)...");
+		} else {
+			service.excluir(id);
+			model.addAttribute("success", "Departamento excluído com sucesso!");
+		}
+		return listar(model);
+	}
 
 }// fim da classe

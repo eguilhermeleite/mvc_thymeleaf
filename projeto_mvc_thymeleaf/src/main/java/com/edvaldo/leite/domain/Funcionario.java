@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -34,11 +35,12 @@ public class Funcionario extends AbstractEntity<Long> {
     private BigDecimal salario;
 
     @NotNull// mensagem padrão de ValidationMessages
-    @PastOrPresent(message = "{PastOrPresent.funcionario.dataEntrada}")
+    @PastOrPresent(message = "A data de entrada deve ser anterior ou igual a data atual")
     @DateTimeFormat(iso = ISO.DATE)
     @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate dataEntrada;
 
+    @FutureOrPresent(message = "A data de saída não pode ser anterior a data de entrada")
     @DateTimeFormat(iso = ISO.DATE)
     @Column(columnDefinition = "DATE")
     private LocalDate dataSaida;

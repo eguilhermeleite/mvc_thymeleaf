@@ -23,6 +23,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="nome">Nome do Funcionário</label> <input type="text" class="form-control" id="nome" placeholder="Nome Completo" autofocus="autofocus" th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' " />
+					
 						<div class="invalid-feedback">
 							<span th:errors="*{nome}"></span>
 						</div>
@@ -42,8 +43,10 @@
 						</div>
 					</div>
 					<div class="form-group col-md-6">
-						<label for="dataSaida">Data de Saída</label> <input type="date" class="form-control" id="dataSaida" th:field="*{dataSaida}" />
-						<div class="invalid-feedback"></div>
+						<label for="dataSaida">Data de Saída</label> <input type="date" class="form-control" id="dataSaida" th:field="*{dataSaida}"  th:classappend="${#fields.hasErrors('dataSaida')} ? 'is-invalid' " />
+						<div class="invalid-feedback">
+							<span th:errors="*{dataSaida}"></span>
+						</div>
 					</div>
 				</div>
 				<div class="form-row">
@@ -59,7 +62,7 @@
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="cidade">Cidade</label> <input type="text" class="form-control" id="cidade" th:field="*{endereco.cidade}"  th:classappend="${#fields.hasErrors('endereco.cidade')} ? 'is-invalid' "/>
+						<label for="cidade">Cidade</label> <input type="text" class="form-control" id="cidade" th:field="*{endereco.cidade}" th:classappend="${#fields.hasErrors('endereco.cidade')} ? 'is-invalid' " />
 						<div class="invalid-feedback">
 							<span th:errors="*{endereco.cidade}"></span>
 						</div>

@@ -49,8 +49,11 @@ public class FuncionarioController {
     public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
 
 	if (result.hasErrors()) {
+	 
 	    return "/funcionario/cadastro";
 	}
+	
+	  
 
 	funService.salvar(funcionario);
 	attr.addFlashAttribute("success", "Funcionário cadastrado com sucesso!");
