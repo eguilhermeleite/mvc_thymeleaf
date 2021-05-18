@@ -10,7 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.edvaldo.leite.controller.validator.FuncionarioValidator;
 import com.edvaldo.leite.domain.Cargo;
 import com.edvaldo.leite.domain.Funcionario;
 import com.edvaldo.leite.domain.enums.UF;
@@ -33,6 +36,11 @@ public class FuncionarioController {
 
     @Autowired
     private CargoService carService;
+    
+  @InitBinder
+    public void initBinder(WebDataBinder binder) {
+	binder.addValidators(new FuncionarioValidator());
+    }
 
     @GetMapping("/cadastrar")
     public String cadastrar(Funcionario funcionario) {
@@ -49,11 +57,9 @@ public class FuncionarioController {
     public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
 
 	if (result.hasErrors()) {
-	 
+
 	    return "/funcionario/cadastro";
 	}
-	
-	  
 
 	funService.salvar(funcionario);
 	attr.addFlashAttribute("success", "Funcionário cadastrado com sucesso!");

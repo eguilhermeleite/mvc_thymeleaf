@@ -5,9 +5,11 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
@@ -40,7 +42,7 @@ public class Funcionario extends AbstractEntity<Long> {
     @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate dataEntrada;
 
-    @FutureOrPresent(message = "A data de saída não pode ser anterior a data de entrada")
+   
     @DateTimeFormat(iso = ISO.DATE)
     @Column(columnDefinition = "DATE")
     private LocalDate dataSaida;
