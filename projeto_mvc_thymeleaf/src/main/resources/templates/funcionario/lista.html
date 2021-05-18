@@ -88,12 +88,12 @@
 								<button type="button" class="btn btn-secondary btn-sm ml-3" data-container="body" data-toggle="popover" data-placement="top"
 									th:attr="data-content=${#strings.concat(
 										obj.endereco.logradouro,', ', 
-										obj.endereco.numero, ' - ',
+										obj.endereco.numero, '  ',
+										obj.endereco.complemento,' - ',
 										obj.endereco.bairro,' / ',
-										obj.endereco.cep,' , ',
 										obj.endereco.cidade, ' - ',
-										obj.endereco.uf,'  ',
-										obj.endereco.complemento
+										obj.endereco.uf, '  ',
+										obj.endereco.cep
 									)}"
 								>
 									<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
