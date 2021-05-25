@@ -1,10 +1,17 @@
 package com.edvaldo.leite.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -13,8 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.edvaldo.leite.controller.utils.PaginacaoUtil;
 import com.edvaldo.leite.domain.Cargo;
 import com.edvaldo.leite.domain.Departamento;
 import com.edvaldo.leite.service.CargoService;
@@ -35,9 +44,33 @@ public class CargoController {
 	return "/cargo/cadastro";
     }
 
+    /*
+     * @GetMapping("/listar") public String listar(ModelMap md) {
+     * md.addAttribute("cargos", crgService.buscarTodos()); return "/cargo/lista"; }
+     */
+    /*
+     * // busca paginada
+     * 
+     * @GetMapping("/listar") public String listar(@PageableDefault(size = 5)
+     * Pageable pageable, ModelMap model) { Page<Cargo> pagina =
+     * crgService.buscaPaginada(pageable); model.addAttribute("cargos", pagina);
+     * return "/cargo/lista"; }
+     */
     @GetMapping("/listar")
-    public String listar(ModelMap md) {
-	md.addAttribute("cargos", crgService.buscarTodos());
+    public String listar(ModelMap md, @RequestParam("page") Optional<Integer> page,
+	    @RequestParam("size") Optional<Integer> size) {
+	int currentPage = page.orElse(1);
+	int pageSize = size.orElse(5);
+	Page<Cargo> cargoPage = crgService.buscaPaginada(PageRequest.of(currentPage - 1, pageSize));
+	md.addAttribute("cargoPage", cargoPage);
+
+	int totalPages = cargoPage.getTotalPages();
+	
+	if (totalPages > 0) {
+	    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+	    md.addAttribute("pageNumbers", pageNumbers);
+
+	}
 	return "/cargo/lista";
     }
 
@@ -61,7 +94,7 @@ public class CargoController {
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 	model.addAttribute("cargo", crgService.buscarPorId(id));
-	return "/cargo/editaCargo";
+	return "/cargo/cadastro";
     }
 
     @PostMapping("/editar")
@@ -78,12 +111,18 @@ public class CargoController {
 
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, ModelMap model) {
+	Optional<Integer> currentPage = Optional.of(1);
+	Optional<Integer> pageSize = Optional.of(5);
 	if (crgService.cargoTemFuncionario(id)) {
 	    model.addAttribute("fail", "Cargo não removido pois tem funcionário(s) vinculado(s)...");
+	    
 	} else {
 	    crgService.excluir(id);
 	    model.addAttribute("success", "Cargo excluído com sucesso!");
 	}
-	return listar(model);
+	
+	//return "redirect:/cargos/listar";
+	return listar(model, currentPage, pageSize);
     }
+
 }

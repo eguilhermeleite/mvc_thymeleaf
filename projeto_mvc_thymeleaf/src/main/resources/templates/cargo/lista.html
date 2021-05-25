@@ -5,17 +5,15 @@
 </head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
-
 		<nav class="navbar navbar-expand-md bg-light">
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i> <span class="h5">Lista de Cargos</span></li>
 				</ul>
 			</div>
-			<a class="btn btn-primary btn-md" href="/cargos/cadastrar" role="button"> <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> <span>Novo Cargo</span>
+			<a class="btn btn-primary btn-md" th:href="@{/cargos/cadastrar}" role="button"> <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> <span>Novo Cargo</span>
 			</a>
 		</nav>
-
 		<div class="container" id="listagem">
 			<div th:replace="fragments/alert"></div>
 			<div class="table-responsive">
@@ -29,8 +27,7 @@
 						</tr>
 					</thead>
 					<tbody>
-
-						<tr th:each="obj:${cargos}">
+						<tr th:each="obj :${cargoPage.content}">
 							<td th:text="${obj.id}"></td>
 							<td th:text="${obj.nome}">Auxiliar Contábil</td>
 							<td th:text="${obj.departamento.nome}">Contabilidade</td>
@@ -40,9 +37,24 @@
 									<span class="oi oi-circle-x " title="Excluir" aria-hidden="true"> </span>
 								</button></td>
 						</tr>
-
 					</tbody>
 				</table>
+				<!-- Controles de paginação -->
+				<nav aria-label="Navegação de página" class="pt-2 pb-5">
+					<ul class="pagination justify-content-center">
+
+						<li th:class="${cargoPage.hasPrevious()?'page-item':'page-item disabled'}"><a class="page-link" th:href="@{/cargos/listar(size=${cargoPage.size},page=${cargoPage.number})}">Anterior</a></li>
+
+						<li class="page-item" th:if="${cargoPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" th:class="${pageNumber==cargoPage.number + 1} ? 'page-item active'"><a class="page-link"
+							th:href="@{/cargos/listar(size=${cargoPage.size}, page=${pageNumber})}"> <span th:text="${pageNumber}"></span>
+						</a></li>
+
+						<li th:class="${cargoPage.hasNext()?'page-item':'page-item disabled'}"><a  class="page-link" th:href="@{/cargos/listar(size=${cargoPage.size},page=${cargoPage.number +2})}">Próxima</a></li>
+
+						
+
+					</ul>
+				</nav>
 			</div>
 		</div>
 		<div th:replace="fragments/modal::modal"></div>

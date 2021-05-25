@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 <head>
 <title>Spring-Boot Básico</title>
 <meta charset="UTF-8" />
@@ -10,96 +12,94 @@
 <link rel="icon" href="/image/favicon.png" />
 
 <!-- Bootstrap core CSS -->
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
 
 <!-- Custom styles for this template -->
-<link href="/css/style.css" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 
 <body>
-		<!--cabeçalho igual para todas as paginas-->
-		<header th:replace="fragments/header :: cabecalho">
-				<div>header</div>
-		</header>
+	<!--cabeçalho igual para todas as paginas-->
+	<header th:replace="fragments/header :: cabecalho">
+		<div>header</div>
+	</header>
 
-		<!--container do conteúdo principal igual para todas as paginas-->
-		<div class="layout-main">
-				<!--barra lateral-->
-				<aside>
-						<nav th:replace="fragments/sidebar :: nav-sidebar">
-								<span>menu</span>
-						</nav>
-				</aside>
+	<!--container do conteúdo principal igual para todas as paginas-->
+	<div class="layout-main">
+		<!--barra lateral-->
+		<aside>
+			<nav th:replace="fragments/sidebar :: nav-sidebar">
+				<span>menu</span>
+			</nav>
+		</aside>
 
-				<!--Conteúdo principal dinamico conforme a requisicao-->
-				<section layout:fragment="corpo">
-						<div></div>
-						<!--rodapé-->
-				</section>
-		</div>
+		<!--Conteúdo principal dinamico conforme a requisicao-->
+		<section layout:fragment="corpo">
+			<div></div>
+			<!--rodapé-->
+		</section>
+	</div>
 
-		<footer  th:replace="fragments/footer :: rodape">
-				<div>rodapé</div>
-		</footer>
+	<footer th:replace="fragments/footer :: rodape">
+		<div>rodapé</div>
+	</footer>
 
-		<!-- Bootstrap core JavaScript
+	<!-- Bootstrap core JavaScript
     ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="/webjars/jquery/jquery.min.js"></script>
-		<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-		<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			//********************* metodo para exclusão *******************************
-			// URL para exclusão
-			var url = '';
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+		//********************* metodo para exclusão *******************************
+		// URL para exclusão
+		var url = '';
 
-			// valor da URL vinda da tag button da lista
-			// Ao clicar em um botão com id inicial chamado 'btn_'  execute a função:
-			$('button[id*="btn_" ]').click(
-					function() {
-						url = "http://localhost:8080/"
-								+ $(this).attr('id').split("_")[1]; // PEGA O VALOR DA URL  DO LADO DIREITO DEPOIS DO "_" (UNDERLINE)
-					});
+		// valor da URL vinda da tag button da lista
+		// Ao clicar em um botão com id inicial chamado 'btn_'  execute a função:
+		$('button[id*="btn_" ]').click(function() {
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1]; // PEGA O VALOR DA URL  DO LADO DIREITO DEPOIS DO "_" (UNDERLINE)
+		});
 
-			// ao clicar no botão de confirmação do modal:
-			$('#btnExcluir').click(function() {
-				document.location.href = url;
-			});
-			//**************************************************************************
-			$(function() {
-				$('[data-toggle="popover"]').popover();
-			});
+		// ao clicar no botão de confirmação do modal:
+		$('#btnExcluir').click(function() {
+			document.location.href = url;
+		});
+		//**************************************************************************
+		$(function() {
+			$('[data-toggle="popover"]').popover();
+		});
 
-			$(document).ready(function() {
+		$(document).ready(function() {
 
-				// tempo de exibição da mensagem de sucesso ou falha
-				setTimeout(function() {
-					$(".alert").fadeOut("slow", function() {
-						$(this).alert('close');
-						//window.location.href = "http://localhost:8080/departamentos/listar";
-					});
-
-				}, 4000);
-
-				/* opção para evitar campos vazios no formulario
-				$("#cadForm").submit(function() {
-				    if($("#nomeCargo").val()== null || $("#nomeCargo").val() ==""){
-				        alert('O Campo Nome do Cargo está Vazio');      
-				        return false;
-				    }
+			// tempo de exibição da mensagem de sucesso ou falha
+			setTimeout(function() {
+				$(".alert").fadeOut("slow", function() {
+					$(this).alert('close');
+					//window.location.href = "http://localhost:8080/departamentos/listar";
 				});
-				 */
 
-				$(".navbar-toggle").click(function() {
-					$(".sidebar").toggleClass("sidebar-open");
-				})
+			}, 4000);
+
+			/* opção para evitar campos vazios no formulario
+			$("#cadForm").submit(function() {
+			    if($("#nomeCargo").val()== null || $("#nomeCargo").val() ==""){
+			        alert('O Campo Nome do Cargo está Vazio');      
+			        return false;
+			    }
 			});
-		</script>
+			 */
 
-		<script src="/js/FooterClass.js"></script>
-		<script src="/js/footerObj.js"></script>
+			$(".navbar-toggle").click(function() {
+				$(".sidebar").toggleClass("sidebar-open");
+			})
+		});
+	</script>
+
+	<script src="/js/FooterClass.js"></script>
+	<script src="/js/footerObj.js"></script>
 
 </body>
 

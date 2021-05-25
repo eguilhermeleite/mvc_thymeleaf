@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.edvaldo.leite.domain.Cargo;
+import com.edvaldo.leite.controller.utils.PaginacaoUtil;
 import com.edvaldo.leite.domain.Cargo;
 import com.edvaldo.leite.repository.CargoRepository;
 
@@ -54,4 +56,7 @@ public class CargoService {
 	return true;
     }
 
+    public Page<Cargo> buscaPaginada(Pageable pageable) {
+	return cargoRepository.findAll(pageable);
+    }
 }
