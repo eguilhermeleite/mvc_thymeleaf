@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <title>Spring-Boot Básico</title>
 <meta charset="UTF-8" />
@@ -60,7 +58,8 @@
 		// valor da URL vinda da tag button da lista
 		// Ao clicar em um botão com id inicial chamado 'btn_'  execute a função:
 		$('button[id*="btn_" ]').click(function() {
-			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1]; // PEGA O VALOR DA URL  DO LADO DIREITO DEPOIS DO "_" (UNDERLINE)
+			//url = http://localhost:8080 -> mais a barra para desenvolvimento
+			url = "/" + $(this).attr('id').split("_")[1]; // PEGA O VALOR DA URL  DO LADO DIREITO DEPOIS DO "_" (UNDERLINE)
 		});
 
 		// ao clicar no botão de confirmação do modal:
@@ -78,7 +77,7 @@
 			setTimeout(function() {
 				$(".alert").fadeOut("slow", function() {
 					$(this).alert('close');
-					
+
 					//window.location.href = "javascript:history.back()";
 				});
 
