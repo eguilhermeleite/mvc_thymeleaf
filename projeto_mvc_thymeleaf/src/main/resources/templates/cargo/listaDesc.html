@@ -33,13 +33,13 @@
 		<div class="container" id="listagem">
 			<div th:replace="fragments/alert"></div>
 			<div class="table-responsive">
-				<table class="table table-striped table-hover table-sm">
+				<table class="table table-striped table-hover table-sm" >
 					<thead>
 						<tr>
 							<th>#</span></th>
 
-							<th><a th:href="@{/cargos/listarDesc(size=${cargoPage.size})}"><span class="mr-2 oi oi-arrow-top"></span></a>Cargo<a th:href="@{/cargos/listar(size=${cargoPage.size}}"><span
-									class="ml-2 oi oi-arrow-bottom"></span></a></th>
+							<th><a th:href="@{/cargos/listarDesc(size=${cargoPage.size})}"><span class="mr-2 oi oi-arrow-top"></span></a>Cargo<a
+								th:href="@{/cargos/listar(size=${cargoPage.size})}"><span class="ml-2 oi oi-arrow-bottom"></span></a></th>
 							<th>Departamento</th>
 							<th>Ação</th>
 						</tr>
@@ -60,16 +60,16 @@
 
 				<!-- Controles de paginação -->
 
-				<nav aria-label="Navegação de página" class="pt-2">
+				<nav aria-label="Navegação de página" class="pt-2 pb-5">
 					<ul class="pagination justify-content-center">
 
-						<li th:class="${cargoPage.hasPrevious()?'page-item':'page-item disabled'}" id="anterior"><a class="page-link" th:href="@{/cargos/listar(page=${cargoPage.number},size=${cargoPage.size})}">Anterior</a></li>
+						<li th:class="${cargoPage.hasPrevious()?'page-item':'page-item disabled'}" id="anterior"><a class="page-link" th:href="@{/cargos/listarDesc(page=${cargoPage.number},size=${cargoPage.size})}">Anterior</a></li>
 
-						<li id="listar" class="page-item" th:if="${cargoPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" th:class="${pageNumber==cargoPage.number + 1} ? 'page-item active'"><a
-							class="page-link" th:href="@{/cargos/listar(page=${pageNumber},size=${cargoPage.size})}"> <span th:text="${pageNumber}"></span>
+						<li id="listar"  class="page-item" th:if="${cargoPage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}" th:class="${pageNumber==cargoPage.number + 1} ? 'page-item active'"><a class="page-link"
+							th:href="@{/cargos/listarDesc(page=${pageNumber},size=${cargoPage.size})}"> <span th:text="${pageNumber}"></span>
 						</a></li>
 
-						<li th:class="${cargoPage.hasNext()?'page-item':'page-item disabled'}" id="proximo"><a class="page-link" th:href="@{/cargos/listar(page=${cargoPage.number +2},size=${cargoPage.size})}">Próxima</a></li>
+						<li th:class="${cargoPage.hasNext()?'page-item':'page-item disabled'}" id="proximo"><a class="page-link" th:href="@{/cargos/listarDesc(page=${cargoPage.number +2},size=${cargoPage.size})}">Próxima</a></li>
 
 					</ul>
 				</nav>

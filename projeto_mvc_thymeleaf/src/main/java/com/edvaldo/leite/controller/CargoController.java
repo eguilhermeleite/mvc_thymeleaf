@@ -10,8 +10,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -44,34 +44,64 @@ public class CargoController {
 	return "/cargo/cadastro";
     }
 
-    /*
-     * @GetMapping("/listar") public String listar(ModelMap md) {
-     * md.addAttribute("cargos", crgService.buscarTodos()); return "/cargo/lista"; }
-     */
-    /*
-     * // busca paginada
-     * 
-     * @GetMapping("/listar") public String listar(@PageableDefault(size = 5)
-     * Pageable pageable, ModelMap model) { Page<Cargo> pagina =
-     * crgService.buscaPaginada(pageable); model.addAttribute("cargos", pagina);
-     * return "/cargo/lista"; }
-     */
     @GetMapping("/listar")
-    public String listar(ModelMap md, @RequestParam("page") Optional<Integer> page,
-	    @RequestParam("size") Optional<Integer> size) {
-	int currentPage = page.orElse(1);
+    public String listar(ModelMap md, @RequestParam("size") Optional<Integer> size,
+	    @RequestParam("page") Optional<Integer> page) {
+
 	int pageSize = size.orElse(5);
+	int currentPage = page.orElse(1);
+
 	Page<Cargo> cargoPage = crgService.buscaPaginada(PageRequest.of(currentPage - 1, pageSize));
+
 	md.addAttribute("cargoPage", cargoPage);
 
 	int totalPages = cargoPage.getTotalPages();
-	
+
+	if (totalPages > 0) {
+	    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+	    md.addAttribute("pageNumbers", pageNumbers);
+	}
+	return "/cargo/lista";
+
+    }
+
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable("id") Long id, ModelMap model) {
+
+	Optional<Integer> currentPage = Optional.of(1);
+	Optional<Integer> pageSize = Optional.of(5);
+
+	if (crgService.cargoTemFuncionario(id)) {
+	    model.addAttribute("fail", "Cargo não removido pois tem funcionário(s) vinculado(s)...");
+
+	} else {
+	    crgService.excluir(id);
+	    model.addAttribute("success", "Cargo excluído com sucesso!");
+
+	}
+
+	return listar(model, pageSize, currentPage);
+    }
+
+    @GetMapping("/listarDesc")
+    public String listarDesc(ModelMap md, @RequestParam("size") Optional<Integer> size,
+	    @RequestParam("page") Optional<Integer> page) {
+
+	int pageSize = size.orElse(5);
+	int currentPage = page.orElse(1);
+
+	Page<Cargo> cargoPage = crgService.buscaPaginadaDesc(PageRequest.of(currentPage - 1, pageSize));
+	md.addAttribute("cargoPage", cargoPage);
+
+	int totalPages = cargoPage.getTotalPages();
+
 	if (totalPages > 0) {
 	    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
 	    md.addAttribute("pageNumbers", pageNumbers);
 
 	}
-	return "/cargo/lista";
+	return "/cargo/listaDesc";
+
     }
 
     @PostMapping("/salvar")
@@ -107,22 +137,6 @@ public class CargoController {
 	crgService.atualizar(cargo);
 	attr.addFlashAttribute("success", "Cargo editado com sucesso");
 	return "redirect:/cargos/cadastrar";
-    }
-
-    @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable("id") Long id, ModelMap model) {
-	Optional<Integer> currentPage = Optional.of(1);
-	Optional<Integer> pageSize = Optional.of(5);
-	if (crgService.cargoTemFuncionario(id)) {
-	    model.addAttribute("fail", "Cargo não removido pois tem funcionário(s) vinculado(s)...");
-	    
-	} else {
-	    crgService.excluir(id);
-	    model.addAttribute("success", "Cargo excluído com sucesso!");
-	}
-	
-	//return "redirect:/cargos/listar";
-	return listar(model, currentPage, pageSize);
     }
 
 }

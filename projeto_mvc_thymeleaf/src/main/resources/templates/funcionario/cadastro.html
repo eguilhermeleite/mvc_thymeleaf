@@ -26,10 +26,8 @@
 
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="nome">Nome do Funcionário</label> <input type="text" class="form-control" id="nome"
-							placeholder="Nome Completo" autofocus="autofocus" th:field="*{nome}"
-							th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' "
-						/>
+						<label for="nome">Nome do Funcionário</label> <input type="text" class="form-control" id="nome" placeholder="Nome Completo" autofocus="autofocus" th:field="*{nome}"
+							th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' " />
 
 						<div class="invalid-feedback">
 							<span th:errors="*{nome}"></span>

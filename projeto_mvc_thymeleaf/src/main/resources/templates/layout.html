@@ -78,10 +78,11 @@
 			setTimeout(function() {
 				$(".alert").fadeOut("slow", function() {
 					$(this).alert('close');
-					//window.location.href = "http://localhost:8080/departamentos/listar";
+					
+					//window.location.href = "javascript:history.back()";
 				});
 
-			}, 4000);
+			}, 2000);
 
 			/* opção para evitar campos vazios no formulario
 			$("#cadForm").submit(function() {
